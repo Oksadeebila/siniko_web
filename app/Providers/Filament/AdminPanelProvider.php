@@ -36,6 +36,9 @@ class AdminPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->brandName('SINIKO') // Ganti dengan nama brand kamu
+            ->sidebarCollapsibleOnDesktop() // contoh tambahan konfigurasi
+            ->default()
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,

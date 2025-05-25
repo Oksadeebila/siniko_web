@@ -31,6 +31,10 @@ class ActivityResource extends Resource
             ->relationship('program', 'nama_program')
             ->required()
             ->label('Program'),
+        Select::make('tahun_anggaran_id')
+            ->relationship('tahunAnggaran', 'tahun')
+            ->required()
+            ->label('Tahun Anggaran'),
 
         TextInput::make('kode')
             ->required()
@@ -53,6 +57,9 @@ class ActivityResource extends Resource
         return $table
             ->columns([
             TextColumn::make('kode')->label('Kode'),
+            SelectFilter::make('tahun_anggaran_id')
+            ->relationship('tahunAnggaran', 'tahun')
+            ->label('Tahun Anggaran'),
             TextColumn::make('nama_kegiatan')->label('Nama'),
             TextColumn::make('program.nama_program')->label('Program'),
             TextColumn::make('total_anggaran')->money('IDR')->label('Anggaran'),

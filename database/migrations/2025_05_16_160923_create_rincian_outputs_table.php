@@ -29,5 +29,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('rincian_outputs');
+
+    //     Schema::table('rincian_outputs', function (Blueprint $table) {
+    //     $table->dropForeign(['tahun_anggaran_id']);
+    //     $table->dropColumn('tahun_anggaran_id');
+    // });
     }
 };

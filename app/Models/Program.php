@@ -14,11 +14,14 @@ class Program extends Model
         'nama_program',
          'total_anggaran',
         'tahun_anggaran',
-       
     ];
 
     public function kros()
     {
         return $this->hasMany(Kro::class);
     }
+
+    public function tahunAnggaran() {
+    return $this->belongsTo(TahunAnggaran::class);
+}
 }

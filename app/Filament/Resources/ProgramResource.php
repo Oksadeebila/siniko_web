@@ -8,6 +8,9 @@ use App\Models\Program;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Filters\Layout;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -33,10 +36,10 @@ class ProgramResource extends Resource
                 ->required()
                 ->maxLength(255)
                 ->label('Nama Program'),
-
-            Forms\Components\TextInput::make('tahun_anggaran')
+            
+                Forms\Components\Select::make('tahun_anggaran_id')
+                ->relationship('tahunAnggaran', 'tahun')
                 ->required()
-                ->numeric()
                 ->label('Tahun Anggaran'),
 
             Forms\Components\TextInput::make('total_anggaran')
@@ -52,13 +55,15 @@ class ProgramResource extends Resource
             ->columns([
               Tables\Columns\TextColumn::make('kode')->label('Kode'),
                 Tables\Columns\TextColumn::make('nama_program')->label('Nama'),
-                Tables\Columns\TextColumn::make('tahun_anggaran')->label('Tahun Anggaran'),
+        
                 Tables\Columns\TextColumn::make('total_anggaran')
                     ->label('Anggaran')
                     ->money('IDR'),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('tahun_anggaran_id')
+                ->relationship('tahunAnggaran', 'tahun')
+                ->label('Tahun Anggaran'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

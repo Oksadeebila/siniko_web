@@ -21,4 +21,9 @@ class RincianOutput extends Model
     public function kro() {
         return $this->belongsTo(Kro::class);
     } 
+
+    public function tahunAnggaran() {
+    return $this->belongsTo(TahunAnggaran::class); }
+
+    
 }

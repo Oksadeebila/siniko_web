@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Forms\Components\TextInput;
@@ -21,8 +22,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class RincianOutputResource extends Resource
 {
     protected static ?string $model = RincianOutput::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Master Data';
 
     public static function form(Form $form): Form
     {
@@ -34,9 +35,13 @@ class RincianOutputResource extends Resource
                 ->relationship('kro', 'nama_kro')
                 ->reactive(),
 
+                Select::make('tahun_anggaran_id')
+                ->relationship('tahunAnggaran', 'tahun')
+                ->required()
+                ->label('Tahun Anggaran'),
+
                 TextInput::make('kode_suffix')
                 ->label('Kode tambahan')
-                ->required()
                 ->live()
                 ->afterStateUpdated(function (Set $set, Get $get) {
                     $kro = \App\Models\Kro::find($get('kro_id'));
@@ -90,7 +95,9 @@ class RincianOutputResource extends Resource
                 Tables\Columns\TextColumn::make('total_anggaran')->money('IDR'),
             ])
             ->filters([
-                //
+                SelectFilter::make('tahun_anggaran_id')
+                ->relationship('tahunAnggaran', 'tahun')
+                ->label('Tahun Anggaran'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

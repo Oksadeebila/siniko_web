@@ -9,4 +9,12 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateRincianOutput extends CreateRecord
 {
     protected static string $resource = RincianOutputResource::class;
+
+    
+
+    public function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
 }
